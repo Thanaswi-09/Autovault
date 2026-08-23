@@ -108,15 +108,15 @@ export default function CustomerDashboard() {
         </div>
       )}
 
-      <div className="mx-auto max-w-7xl px-5 py-8 lg:px-6 lg:py-10">
+      <div className="mx-auto max-w-6xl px-5 py-8 lg:px-6 lg:py-10">
         <div className="mb-8">
-          <p className="mb-2 text-center text-[11px] font-bold uppercase tracking-[0.2em] text-[#0f766e] sm:text-left">AutoVault showroom</p>
-          <h2 className="text-center text-4xl font-black text-slate-900 sm:text-left">Browse Vehicles</h2>
+          <p className="mb-2 text-center text-[11px] font-bold uppercase tracking-[0.2em] text-[#0f766e]">AutoVault showroom</p>
+          <h2 className="text-center text-4xl font-black text-slate-900">Browse Vehicles</h2>
           <p className="mt-2 text-center text-slate-600">Explore the full inventory and pick your next dream ride</p>
         </div>
 
         <div className="mb-8 rounded-[28px] border border-[#dfeee7] bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]">
-          <p className="mb-4 text-center text-[11px] font-bold uppercase tracking-[0.2em] text-slate-600 sm:text-left">Filter Vehicles</p>
+          <p className="mb-4 text-center text-[11px] font-bold uppercase tracking-[0.2em] text-slate-600">Filter Vehicles</p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
             <input type="text" name="make" value={filters.make} onChange={handleFilterChange} placeholder="Make" className={inputClass} />
             <input type="text" name="model" value={filters.model} onChange={handleFilterChange} placeholder="Model" className={inputClass} />
@@ -154,8 +154,8 @@ export default function CustomerDashboard() {
           </div>
         ) : (
           <>
-            <p className="mb-5 text-center text-sm font-medium text-slate-600 sm:text-left">{vehicles.length} vehicle{vehicles.length !== 1 ? 's' : ''} found</p>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <p className="mb-5 text-center text-sm font-medium text-slate-600">{vehicles.length} vehicle{vehicles.length !== 1 ? 's' : ''} found</p>
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {vehicles.map((vehicle) => (
                 <VehicleCard
                   key={vehicle.id}

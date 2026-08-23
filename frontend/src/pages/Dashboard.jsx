@@ -44,19 +44,19 @@ export default function Dashboard() {
     <div className="min-h-screen bg-[#f3f7f3] text-slate-800">
       <Navbar />
 
-      <div className="mx-auto max-w-7xl px-5 py-8 lg:px-6 lg:py-10">
+      <div className="mx-auto max-w-6xl px-5 py-8 lg:px-6 lg:py-10">
         <div className="mb-8 overflow-hidden rounded-[28px] border border-[#dfeee7] bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.06)] lg:p-10">
-          <div className="flex flex-col gap-8 text-center lg:flex-row lg:items-end lg:justify-between lg:text-left">
+          <div className="flex flex-col items-center gap-8 text-center">
             <div className="w-full">
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500">Welcome back</p>
-              <h1 className="text-center text-5xl font-black tracking-[-0.06em] text-slate-900 lg:text-left lg:text-6xl">
+              <h1 className="text-center text-5xl font-black tracking-[-0.06em] text-slate-900 lg:text-6xl">
                 Hello, {user?.name?.split(' ')[0]} 👋
               </h1>
-              <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 lg:mx-0 lg:text-left lg:text-lg">
+              <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 lg:text-lg">
                 Browse premium inventory, compare standout models, and find the perfect vehicle for your next drive.
               </p>
             </div>
-            <div className="flex flex-wrap justify-center gap-3 lg:justify-end">
+            <div className="flex flex-wrap justify-center gap-3">
               <button
                 onClick={() => navigate('/vehicles')}
                 className="rounded-2xl bg-[#0f766e] px-5 py-3 text-sm font-black text-white transition hover:bg-[#0b615c]"
@@ -89,7 +89,7 @@ export default function Dashboard() {
 
         {featured.length > 0 && (
           <div className="mb-8">
-            <div className="mb-5 flex items-center justify-between gap-4">
+            <div className="mb-5 flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:justify-between">
               <h2 className="text-3xl font-black tracking-[-0.05em] text-slate-900">Featured Vehicles</h2>
               <button onClick={() => navigate('/vehicles')} className="text-sm font-bold text-[#0f766e] transition hover:text-[#0a5d58]">
                 View all →
@@ -113,7 +113,7 @@ export default function Dashboard() {
         )}
 
         <div>
-          <h2 className="mb-5 text-center text-3xl font-black tracking-[-0.05em] text-slate-900 sm:text-left">Quick Tips</h2>
+          <h2 className="mb-5 text-center text-3xl font-black tracking-[-0.05em] text-slate-900">Quick Tips</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {TIPS.map(({ icon, title, desc }) => (
               <div key={title} className="rounded-[22px] border border-[#dfeee7] bg-white p-5 text-center shadow-[0_12px_30px_rgba(15,23,42,0.04)]">
