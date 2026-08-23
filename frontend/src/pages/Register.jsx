@@ -44,7 +44,7 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-gray-900 rounded-2xl shadow-xl p-8">
-        <h1 className="text-3xl font-bold text-white mb-1">AutoVault</h1>
+        <h1 className="text-3xl font-bold text-white mb-1">Auto<span className="text-blue-500">Vault</span></h1>
         <p className="text-gray-400 mb-8 text-sm">Create your account</p>
 
         {error && (
