@@ -70,3 +70,53 @@ class TestUserRegistration:
         data = response.json()
         assert "password" not in data
         assert "password_hash" not in data
+
+
+class TestLogin:
+
+    def test_login_success(self, client, registered_user):
+        response = client.post("/api/auth/login", json={
+            "email": registered_user["email"],
+            "password": registered_user["password"],
+        })
+        assert response.status_code == 200
+        data = response.json()
+        assert "access_token" in data
+        assert data["token_type"] == "bearer"
+
+    def test_login_wrong_password(self, client, registered_user):
+        response = client.post("/api/auth/login", json={
+            "email": registered_user["email"],
+            "password": "wrongpassword",
+        })
+        assert response.status_code == 401
+
+    def test_login_unknown_email(self, client):
+        response = client.post("/api/auth/login", json={
+            "email": "nobody@example.com",
+            "password": "somepassword",
+        })
+        assert response.status_code == 401
+
+    def test_login_missing_email(self, client):
+        response = client.post("/api/auth/login", json={"password": "securepass123"})
+        assert response.status_code == 422
+
+    def test_login_missing_password(self, client):
+        response = client.post("/api/auth/login", json={"email": "user@example.com"})
+        assert response.status_code == 422
+
+
+class TestJWT:
+
+    def test_protected_route_without_token(self, client):
+        response = client.get("/api/vehicles")
+        assert response.status_code == 401
+
+    def test_protected_route_with_invalid_token(self, client):
+        response = client.get("/api/vehicles", headers={"Authorization": "Bearer invalidtoken"})
+        assert response.status_code == 401
+
+    def test_protected_route_with_valid_token(self, client, user_headers):
+        response = client.get("/api/vehicles", headers=user_headers)
+        assert response.status_code == 200
