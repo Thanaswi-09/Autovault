@@ -135,22 +135,22 @@ Amazon Q suggested creating a ProtectedRoute wrapper component that checks the a
 
 ---
 
-## Entry 14 — Tailwind CSS Dark Theme
+## Entry 14 — Tailwind CSS White and Green Theme
 
 **My Prompt:**
-What Tailwind CSS color classes should I use for a clean dark theme UI?
+What Tailwind CSS color classes should I use for a clean white and green dealership UI?
 
 **AI Response Summary:**
-Amazon Q suggested using gray-950 for the page background, gray-900 for cards and panels, gray-800 for inputs, and blue-600 for primary actions. It recommended keeping text hierarchy with white for headings, gray-300 for body text, and gray-400 for labels. I used this palette consistently across all pages.
+Amazon Q suggested using white cards and panels, a soft off-white page background, green for primary actions and active states, and dark slate text for readable headings and labels. I used this palette consistently across all pages.
 
 ---
 
-## Entry 15 — UI Redesign with Purple Theme
+## Entry 15 — UI Redesign with White and Green Theme
 
 **My Prompt:**
-My UI looks plain and unprofessional. How do I make it look more like a real dealership website? I also want to switch from blue to a purple color scheme.
+My UI looks plain and unprofessional. How do I make it look more like a real dealership website? I want a white and green color scheme.
 
 **AI Response Summary:**
-Amazon Q suggested using a deep purple-tinted dark background (#0f0a1e) instead of plain gray, and using semi-transparent white overlays (white/5, white/10) for cards and panels to create a glassmorphism effect. It recommended purple-600 as the primary action color with shadow-purple-900 for depth. For the navbar, it suggested a sticky frosted-glass bar with active link underlines. For vehicle cards, it recommended a gradient header section, stock badges, and a clear purchase CTA. The empty state was improved with an icon and contextual message. I applied these changes across all pages and components.
+Amazon Q suggested using a soft white background, white cards with subtle borders, green primary actions, and dark text for clear hierarchy. For the navbar, it suggested a clean layout with active link states. For vehicle cards, it recommended clear spacing, stock badges, and a strong purchase CTA. The empty state was improved with an icon and contextual message. I applied these changes across all pages and components.
 
 ---
