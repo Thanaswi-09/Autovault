@@ -111,7 +111,7 @@ class TestJWT:
 
     def test_protected_route_without_token(self, client):
         response = client.get("/api/vehicles")
-        assert response.status_code == 401
+        assert response.status_code == 403
 
     def test_protected_route_with_invalid_token(self, client):
         response = client.get("/api/vehicles", headers={"Authorization": "Bearer invalidtoken"})

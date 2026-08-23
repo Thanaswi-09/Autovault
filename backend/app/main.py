@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from app.database import Base, engine
-from app.routes import auth
+from app.routes import auth, vehicles
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="AutoVault")
 app.include_router(auth.router)
+app.include_router(vehicles.router)
