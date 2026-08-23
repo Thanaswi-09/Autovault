@@ -207,3 +207,77 @@ class TestVehicleSearch:
         assert response.status_code == 200
         results = response.json()
         assert len(results) == 2
+
+
+class TestVehicleUpdate:
+
+    def test_update_vehicle_as_admin(self, client, admin_headers, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        response = client.put(f"/api/vehicles/{vehicle_id}", json={
+            "price": 27000.00,
+            "quantity": 10
+        }, headers=admin_headers)
+        assert response.status_code == 200
+        data = response.json()
+        assert data["price"] == 27000.00
+        assert data["quantity"] == 10
+        assert data["make"] == "Toyota"
+
+    def test_update_vehicle_as_user_forbidden(self, client, user_headers, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        response = client.put(f"/api/vehicles/{vehicle_id}", json={
+            "price": 27000.00
+        }, headers=user_headers)
+        assert response.status_code == 403
+
+    def test_update_vehicle_not_found(self, client, admin_headers):
+        response = client.put("/api/vehicles/99999", json={
+            "price": 27000.00
+        }, headers=admin_headers)
+        assert response.status_code == 404
+
+    def test_update_vehicle_partial(self, client, admin_headers, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        response = client.put(f"/api/vehicles/{vehicle_id}", json={
+            "make": "Lexus"
+        }, headers=admin_headers)
+        assert response.status_code == 200
+        data = response.json()
+        assert data["make"] == "Lexus"
+        assert data["model"] == sample_vehicle["model"]
+        assert data["price"] == sample_vehicle["price"]
+
+    def test_update_vehicle_invalid_price(self, client, admin_headers, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        response = client.put(f"/api/vehicles/{vehicle_id}", json={
+            "price": -500.00
+        }, headers=admin_headers)
+        assert response.status_code == 422
+
+
+class TestVehicleDelete:
+
+    def test_delete_vehicle_as_admin(self, client, admin_headers, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        response = client.delete(f"/api/vehicles/{vehicle_id}", headers=admin_headers)
+        assert response.status_code == 204
+
+    def test_delete_vehicle_no_longer_exists(self, client, admin_headers, user_headers, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        client.delete(f"/api/vehicles/{vehicle_id}", headers=admin_headers)
+        response = client.get("/api/vehicles", headers=user_headers)
+        assert all(v["id"] != vehicle_id for v in response.json())
+
+    def test_delete_vehicle_as_user_forbidden(self, client, user_headers, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        response = client.delete(f"/api/vehicles/{vehicle_id}", headers=user_headers)
+        assert response.status_code == 403
+
+    def test_delete_vehicle_unauthenticated(self, client, sample_vehicle):
+        vehicle_id = sample_vehicle["id"]
+        response = client.delete(f"/api/vehicles/{vehicle_id}")
+        assert response.status_code == 403
+
+    def test_delete_vehicle_not_found(self, client, admin_headers):
+        response = client.delete("/api/vehicles/99999", headers=admin_headers)
+        assert response.status_code == 404
