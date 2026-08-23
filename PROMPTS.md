@@ -72,7 +72,7 @@ How do pytest fixtures work and how do I share a test database and test client a
 
 **AI Response Summary:**
 Amazon Q explained that fixtures defined in conftest.py are automatically available to all test files in the same directory. It suggested using a function-scoped fixture to create and drop tables before and after each test to keep tests isolated. I used this pattern in my conftest.py.
-
+    
 ---
 
 ## Entry 8 — Pydantic Validation
@@ -142,5 +142,15 @@ What Tailwind CSS color classes should I use for a clean dark theme UI?
 
 **AI Response Summary:**
 Amazon Q suggested using gray-950 for the page background, gray-900 for cards and panels, gray-800 for inputs, and blue-600 for primary actions. It recommended keeping text hierarchy with white for headings, gray-300 for body text, and gray-400 for labels. I used this palette consistently across all pages.
+
+---
+
+## Entry 15 — UI Redesign with Purple Theme
+
+**My Prompt:**
+My UI looks plain and unprofessional. How do I make it look more like a real dealership website? I also want to switch from blue to a purple color scheme.
+
+**AI Response Summary:**
+Amazon Q suggested using a deep purple-tinted dark background (#0f0a1e) instead of plain gray, and using semi-transparent white overlays (white/5, white/10) for cards and panels to create a glassmorphism effect. It recommended purple-600 as the primary action color with shadow-purple-900 for depth. For the navbar, it suggested a sticky frosted-glass bar with active link underlines. For vehicle cards, it recommended a gradient header section, stock badges, and a clear purchase CTA. The empty state was improved with an icon and contextual message. I applied these changes across all pages and components.
 
 ---

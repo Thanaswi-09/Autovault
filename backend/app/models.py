@@ -23,6 +23,7 @@ class Vehicle(Base):
     category = Column(String, nullable=False)
     price = Column(Float, nullable=False)
     quantity = Column(Integer, nullable=False)
+    image_url = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (

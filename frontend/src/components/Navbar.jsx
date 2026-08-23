@@ -11,49 +11,64 @@ export default function Navbar() {
     navigate('/login')
   }
 
-  function isActive(path) {
-    return location.pathname === path
-  }
+  const isActive = (path) => location.pathname === path
 
   return (
-    <nav className="bg-gray-900 border-b border-gray-800 text-white px-6 py-4 flex items-center justify-between">
-      <Link
-        to={user?.role === 'ADMIN' ? '/admin' : '/dashboard'}
-        className="text-xl font-bold tracking-wide text-white hover:text-blue-400 transition"
-      >
-        Auto<span className="text-blue-500">Vault</span>
-      </Link>
-
-      {user && (
-        <div className="flex items-center gap-5">
-          <Link
-            to="/dashboard"
-            className={`text-sm transition ${isActive('/dashboard') ? 'text-white font-medium' : 'text-gray-400 hover:text-white'}`}
-          >
-            Vehicles
-          </Link>
-          {user.role === 'ADMIN' && (
-            <Link
-              to="/admin"
-              className={`text-sm transition ${isActive('/admin') ? 'text-white font-medium' : 'text-gray-400 hover:text-white'}`}
-            >
-              Inventory
-            </Link>
-          )}
-          <div className="flex items-center gap-3 pl-3 border-l border-gray-700">
-            <div className="text-right hidden sm:block">
-              <p className="text-sm text-white leading-none">{user.name}</p>
-              <p className="text-xs text-blue-400 mt-0.5 uppercase tracking-wide">{user.role}</p>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="text-sm bg-gray-800 hover:bg-red-600 border border-gray-700 hover:border-red-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg transition"
-            >
-              Logout
-            </button>
+    <nav className="sticky top-0 z-40 border-b border-[#dfeee7] bg-[#f5faf7] backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-6">
+        <Link to={user?.role === 'ADMIN' ? '/admin' : '/dashboard'} className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0f766e] text-base font-black text-white shadow-[0_0_18px_rgba(15,118,110,0.25)]">
+            A
           </div>
-        </div>
-      )}
+          <div className="text-2xl font-black tracking-tight text-slate-900">
+            AUTO<span className="text-[#0f766e]">DEALER</span>
+          </div>
+        </Link>
+
+        {user && (
+          <div className="flex items-center gap-6 lg:gap-8">
+            <Link
+              to="/dashboard"
+              className={`text-sm font-semibold transition ${
+                isActive('/dashboard') ? 'text-[#0f766e]' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Dashboard
+            </Link>
+            <Link
+              to="/vehicles"
+              className={`text-sm font-semibold transition ${
+                isActive('/vehicles') ? 'text-[#0f766e]' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Browse Vehicles
+            </Link>
+            {user.role === 'ADMIN' && (
+              <Link
+                to="/admin"
+                className={`text-sm font-semibold transition ${
+                  isActive('/admin') ? 'text-[#0f766e]' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Admin Panel
+              </Link>
+            )}
+
+            <div className="flex items-center gap-3 border-l border-slate-200 pl-4">
+              <span className="hidden text-sm text-slate-600 sm:block">Signed in as</span>
+              <span className="rounded-full border border-[#bfe8dd] bg-[#eafaf5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#0f766e]">
+                {user.role}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="rounded-xl border border-[#dfeee7] bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-[#0f766e] hover:text-[#0f766e]"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </nav>
   )
 }

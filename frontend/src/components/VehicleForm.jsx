@@ -41,47 +41,49 @@ export default function VehicleForm({ initial, onSubmit, onCancel, loading }) {
   }
 
   const inputClass = (field) =>
-    `w-full bg-gray-800 text-white border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition ${errors[field] ? 'border-red-500' : 'border-gray-700'}`
+    `w-full bg-gray-50 text-gray-900 border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 transition placeholder-gray-400 ${
+      errors[field] ? 'border-red-400' : 'border-gray-200'
+    }`
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs text-gray-400 mb-1">Make</label>
+          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Make</label>
           <input name="make" value={form.make} onChange={handleChange} className={inputClass('make')} placeholder="Toyota" />
-          {errors.make && <p className="text-red-400 text-xs mt-1">{errors.make}</p>}
+          {errors.make && <p className="text-red-500 text-xs mt-1">{errors.make}</p>}
         </div>
         <div>
-          <label className="block text-xs text-gray-400 mb-1">Model</label>
+          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Model</label>
           <input name="model" value={form.model} onChange={handleChange} className={inputClass('model')} placeholder="Camry" />
-          {errors.model && <p className="text-red-400 text-xs mt-1">{errors.model}</p>}
+          {errors.model && <p className="text-red-500 text-xs mt-1">{errors.model}</p>}
         </div>
       </div>
       <div>
-        <label className="block text-xs text-gray-400 mb-1">Category</label>
+        <label className="block text-xs font-semibold text-gray-600 mb-1.5">Category</label>
         <select name="category" value={form.category} onChange={handleChange} className={inputClass('category')}>
           {CATEGORIES.map(c => <option key={c}>{c}</option>)}
         </select>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs text-gray-400 mb-1">Price ($)</label>
+          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Price ($)</label>
           <input type="number" name="price" value={form.price} onChange={handleChange} className={inputClass('price')} placeholder="25000" min="0" />
-          {errors.price && <p className="text-red-400 text-xs mt-1">{errors.price}</p>}
+          {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price}</p>}
         </div>
         <div>
-          <label className="block text-xs text-gray-400 mb-1">Quantity</label>
+          <label className="block text-xs font-semibold text-gray-600 mb-1.5">Quantity</label>
           <input type="number" name="quantity" value={form.quantity} onChange={handleChange} className={inputClass('quantity')} placeholder="5" min="0" />
-          {errors.quantity && <p className="text-red-400 text-xs mt-1">{errors.quantity}</p>}
+          {errors.quantity && <p className="text-red-500 text-xs mt-1">{errors.quantity}</p>}
         </div>
       </div>
       <div className="flex gap-3 pt-2">
         <button type="submit" disabled={loading}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium py-2 rounded-lg transition">
+          className="flex-1 bg-sky-500 hover:bg-sky-600 disabled:opacity-50 text-white text-sm font-semibold py-2.5 rounded-xl transition shadow-md shadow-sky-200">
           {loading ? 'Saving...' : initial ? 'Update Vehicle' : 'Add Vehicle'}
         </button>
         <button type="button" onClick={onCancel}
-          className="flex-1 bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-2 rounded-lg transition">
+          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold py-2.5 rounded-xl transition">
           Cancel
         </button>
       </div>

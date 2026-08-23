@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  background: #f5f7f4;
+}
+
+body {
+  background-color: #f5f7f4;
+  color: #0f172a;
+  margin: 0;
+}

@@ -46,6 +46,7 @@ class VehicleCreate(BaseModel):
     category: str
     price: float
     quantity: int
+    image_url: str | None = None
 
     @field_validator("price")
     @classmethod
@@ -75,6 +76,7 @@ class VehicleUpdate(BaseModel):
     category: str | None = None
     price: float | None = None
     quantity: int | None = None
+    image_url: str | None = None
 
     @field_validator("price")
     @classmethod
@@ -98,6 +100,7 @@ class VehicleResponse(BaseModel):
     category: str
     price: float
     quantity: int
+    image_url: str | None = None
 
     model_config = {"from_attributes": True}
 
