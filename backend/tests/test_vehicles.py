@@ -115,3 +115,95 @@ class TestVehicleRetrieval:
         assert "category" in vehicle
         assert "price" in vehicle
         assert "quantity" in vehicle
+
+
+class TestVehicleSearch:
+
+    @staticmethod
+    def seed_vehicles(client, admin_headers):
+        vehicles = [
+            {"make": "Toyota", "model": "Camry", "category": "Sedan", "price": 25000.00, "quantity": 5},
+            {"make": "Toyota", "model": "RAV4", "category": "SUV", "price": 35000.00, "quantity": 3},
+            {"make": "Honda", "model": "Civic", "category": "Sedan", "price": 20000.00, "quantity": 4},
+            {"make": "Ford", "model": "Mustang", "category": "Coupe", "price": 45000.00, "quantity": 2},
+        ]
+        for v in vehicles:
+            client.post("/api/vehicles", json=v, headers=admin_headers)
+
+    def test_search_by_make(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?make=Toyota", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 2
+        assert all(v["make"] == "Toyota" for v in results)
+
+    def test_search_by_model(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?model=Civic", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 1
+        assert results[0]["model"] == "Civic"
+
+    def test_search_by_category(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?category=Sedan", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 2
+        assert all(v["category"] == "Sedan" for v in results)
+
+    def test_search_by_min_price(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?min_price=35000", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 2
+        assert all(v["price"] >= 35000 for v in results)
+
+    def test_search_by_max_price(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?max_price=25000", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 2
+        assert all(v["price"] <= 25000 for v in results)
+
+    def test_search_by_price_range(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?min_price=20000&max_price=35000", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 3
+        assert all(20000 <= v["price"] <= 35000 for v in results)
+
+    def test_search_combined_filters(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?make=Toyota&category=SUV", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 1
+        assert results[0]["model"] == "RAV4"
+
+    def test_search_invalid_price_range(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?min_price=50000&max_price=10000", headers=user_headers)
+        assert response.status_code == 422
+
+    def test_search_no_results(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?make=Ferrari", headers=user_headers)
+        assert response.status_code == 200
+        assert response.json() == []
+
+    def test_search_requires_auth(self, client):
+        response = client.get("/api/vehicles/search?make=Toyota")
+        assert response.status_code == 403
+
+    def test_search_partial_match(self, client, admin_headers, user_headers):
+        self.seed_vehicles(client, admin_headers)
+        response = client.get("/api/vehicles/search?make=toy", headers=user_headers)
+        assert response.status_code == 200
+        results = response.json()
+        assert len(results) == 2
