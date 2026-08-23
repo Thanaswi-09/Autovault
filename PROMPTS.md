@@ -75,4 +75,72 @@ Amazon Q explained that fixtures defined in conftest.py are automatically availa
 
 ---
 
-<!-- New entries will be added here as development continues -->
+## Entry 8 — Pydantic Validation
+
+**My Prompt:**
+How do I validate request data in FastAPI? Can I add custom validation rules like minimum password length?
+
+**AI Response Summary:**
+Amazon Q explained that FastAPI uses Pydantic models for request validation and that custom validators can be added using the field_validator decorator. It showed how to raise a ValueError inside a validator to return a 422 response automatically. I used this for password length, empty string, and negative number validation in my schemas.
+
+---
+
+## Entry 9 — bcrypt Compatibility Issue
+
+**My Prompt:**
+My tests are failing with a bcrypt error about password length. What's going on?
+
+**AI Response Summary:**
+Amazon Q identified that bcrypt 5.x introduced a breaking change that is incompatible with passlib 1.7.4. It suggested downgrading bcrypt to 4.0.1 and pinning it in requirements.txt. This fixed the issue immediately.
+
+---
+
+## Entry 10 — FastAPI Dependencies
+
+**My Prompt:**
+What is the best way to protect routes in FastAPI so that some routes require a logged-in user and others require an admin?
+
+**AI Response Summary:**
+Amazon Q explained FastAPI's Depends() system and suggested creating two reusable dependencies — get_current_user which decodes the JWT and returns the user, and require_admin which wraps get_current_user and raises a 403 if the role is not ADMIN. I implemented this pattern in dependencies.py.
+
+---
+
+## Entry 11 — React State Management
+
+**My Prompt:**
+What is the simplest way to manage logged-in user state across multiple pages in React without using Redux?
+
+**AI Response Summary:**
+Amazon Q suggested using React Context with a custom useAuth hook. It explained that storing the user object and token in localStorage on login and reading it back on page load handles persistence without needing a heavy state management library. I implemented this in AuthContext.jsx.
+
+---
+
+## Entry 12 — Axios Interceptors
+
+**My Prompt:**
+How do I automatically attach the JWT token to every API request in React without repeating it in every component?
+
+**AI Response Summary:**
+Amazon Q explained Axios request interceptors — a function that runs before every request and can modify the config. It suggested reading the token from localStorage in the interceptor and adding it to the Authorization header. I used this in api/client.js.
+
+---
+
+## Entry 13 — React Router Protected Routes
+
+**My Prompt:**
+How do I redirect unauthenticated users away from protected pages in React Router?
+
+**AI Response Summary:**
+Amazon Q suggested creating a ProtectedRoute wrapper component that checks the auth context and returns a Navigate component to redirect to login if no user is found. It also showed how to extend this for role-based access by checking user.role. I used this pattern in App.jsx.
+
+---
+
+## Entry 14 — Tailwind CSS Dark Theme
+
+**My Prompt:**
+What Tailwind CSS color classes should I use for a clean dark theme UI?
+
+**AI Response Summary:**
+Amazon Q suggested using gray-950 for the page background, gray-900 for cards and panels, gray-800 for inputs, and blue-600 for primary actions. It recommended keeping text hierarchy with white for headings, gray-300 for body text, and gray-400 for labels. I used this palette consistently across all pages.
+
+---
