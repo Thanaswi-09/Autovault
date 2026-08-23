@@ -1,1 +1,6 @@
-# main.py — application entry point (to be implemented)
+from fastapi import FastAPI
+from app.database import Base, engine
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="AutoVault")
