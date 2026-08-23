@@ -4,6 +4,7 @@ from app.database import get_db
 from app.models import User
 from app.schemas import RegisterRequest, LoginRequest, UserResponse, TokenResponse
 from app.auth import hash_password, verify_password, create_access_token
+from app.dependencies import get_current_user
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -30,3 +31,8 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     token = create_access_token({"sub": str(user.id), "role": user.role})
     return {"access_token": token, "token_type": "bearer"}
+
+
+@router.get("/me", response_model=UserResponse)
+def me(current_user: User = Depends(get_current_user)):
+    return current_user
